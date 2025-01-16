@@ -1,0 +1,19 @@
+defmodule AsicSentry.AsicMiners.AsicMiner do
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  schema "asic_miners" do
+    field :ip, :string
+    field :api_code, :string
+    field :asic_model, :string
+
+    timestamps(type: :utc_datetime)
+  end
+
+  @doc false
+  def changeset(asic_miner, attrs) do
+    asic_miner
+    |> cast(attrs, [:api_code, :asic_model, :ip])
+    |> validate_required([:api_code, :asic_model, :ip])
+  end
+end

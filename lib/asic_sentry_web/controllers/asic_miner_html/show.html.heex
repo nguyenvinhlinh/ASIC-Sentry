@@ -1,0 +1,17 @@
+<.header>
+  Asic miner {@asic_miner.id}
+  <:subtitle>This is a asic_miner record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/asic_miners/#{@asic_miner}/edit"}>
+      <.button>Edit asic_miner</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Api code">{@asic_miner.api_code}</:item>
+  <:item title="Asic model">{@asic_miner.asic_model}</:item>
+  <:item title="Ip">{@asic_miner.ip}</:item>
+</.list>
+
+<.back navigate={~p"/asic_miners"}>Back to asic_miners</.back>
