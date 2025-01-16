@@ -2,13 +2,11 @@ import Config
 
 # Configure your database
 config :asic_sentry, AsicSentry.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "asic_sentry_dev",
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  [database: "/home/nguyenvinhlinh/Projects/asic_sentry/data/dev-data.db",
+   journal_mode: :wal,
+   cache_size: -64000,
+   temp_store: :memory,
+   pool_size: 5]
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
