@@ -462,6 +462,7 @@ defmodule AsicSentryWeb.CoreComponents do
 
   slot :col, required: true do
     attr :label, :string
+    attr :class, :string
   end
 
   slot :action, doc: "the slot for showing user actions in the last table column"
