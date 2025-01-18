@@ -14,7 +14,7 @@
 //
 //     import "some-package"
 //
-
+import "flowbite/dist/flowbite.phoenix.js";
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html"
 // Establish Phoenix Socket and LiveView configuration.
@@ -41,4 +41,3 @@ liveSocket.connect()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
-
