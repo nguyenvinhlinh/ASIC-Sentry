@@ -18,7 +18,6 @@ defmodule AsicSentryWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
-    resources "/asic_miners", AsicMinerController
   end
 
   # Other scopes may use custom stacks.
