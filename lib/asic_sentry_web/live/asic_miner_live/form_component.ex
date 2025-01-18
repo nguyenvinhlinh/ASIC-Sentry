@@ -30,7 +30,7 @@ defmodule AsicSentryWeb.AsicMinerLive.FormComponent do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Asic miner updated successfully")
+         |> put_flash(:info, "ASIC miner updated successfully")
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -45,7 +45,7 @@ defmodule AsicSentryWeb.AsicMinerLive.FormComponent do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Asic miner created successfully")
+         |> put_flash(:info, "ASIC miner created successfully")
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
