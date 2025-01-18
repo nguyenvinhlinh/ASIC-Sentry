@@ -18,12 +18,21 @@ defmodule AsicSentryWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/asic_miners", AsicMinerLive.Index, :index
+    live "/asic_miners/new", AsicMinerLive.Index, :new
+    live "/asic_miners/:id/edit", AsicMinerLive.Index, :edit
+
+    live "/asic_miners/:id", AsicMinerLive.Show, :show
+    live "/asic_miners/:id/show/edit", AsicMinerLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
   # scope "/api", AsicSentryWeb do
   #   pipe_through :api
   # end
+
+
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:asic_sentry, :dev_routes) do
