@@ -23,6 +23,14 @@ defmodule AsicSentryWeb.Router do
     live "/asic_miners/new", AsicMinerLive.Index, :new
     live "/asic_miners/:id/edit", AsicMinerLive.Index, :edit
 
+
+    live "/configs", ConfigLive.Index, :index
+    live "/configs/new", ConfigLive.Index, :new
+    live "/configs/:id/edit", ConfigLive.Index, :edit
+
+    live "/configs/:id", ConfigLive.Show, :show
+    live "/configs/:id/show/edit", ConfigLive.Show, :edit
+
   end
 
   # Other scopes may use custom stacks.
