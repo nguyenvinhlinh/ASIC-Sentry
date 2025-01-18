@@ -15,5 +15,6 @@ defmodule AsicSentry.AsicMiners.AsicMiner do
     asic_miner
     |> cast(attrs, [:api_code, :asic_model, :ip])
     |> validate_required([:api_code, :asic_model, :ip])
+    |> unique_constraint([:api_code])
   end
 end
