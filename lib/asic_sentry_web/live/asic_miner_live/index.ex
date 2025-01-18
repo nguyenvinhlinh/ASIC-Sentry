@@ -3,6 +3,7 @@ defmodule AsicSentryWeb.AsicMinerLive.Index do
 
   alias AsicSentry.AsicMiners
   alias AsicSentry.AsicMiners.AsicMiner
+  embed_templates "index_html/*"
 
   @impl true
   def mount(_params, _session, socket) do

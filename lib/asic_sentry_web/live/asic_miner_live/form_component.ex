@@ -4,33 +4,6 @@ defmodule AsicSentryWeb.AsicMinerLive.FormComponent do
   alias AsicSentry.AsicMiners
 
   @impl true
-  def render(assigns) do
-    ~H"""
-    <div>
-      <.header>
-        {@title}
-        <:subtitle>Use this form to manage asic_miner records in your database.</:subtitle>
-      </.header>
-
-      <.simple_form
-        for={@form}
-        id="asic_miner-form"
-        phx-target={@myself}
-        phx-change="validate"
-        phx-submit="save"
-      >
-        <.input field={@form[:api_code]} type="text" label="Api code" />
-        <.input field={@form[:asic_model]} type="text" label="Asic model" />
-        <.input field={@form[:ip]} type="text" label="Ip" />
-        <:actions>
-          <.button phx-disable-with="Saving...">Save Asic miner</.button>
-        </:actions>
-      </.simple_form>
-    </div>
-    """
-  end
-
-  @impl true
   def update(%{asic_miner: asic_miner} = assigns, socket) do
     {:ok,
      socket

@@ -1,0 +1,20 @@
+<div>
+  <.header>
+    {@title}
+  </.header>
+
+  <.simple_form
+    for={@form}
+    id="asic_miner-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save"
+  >
+    <.input field={@form[:api_code]} type="text" label="API CODE" />
+    <.input field={@form[:asic_model]} type="text" label="ASIC MODEL" />
+    <.input field={@form[:ip]} type="text" label="IP Address" />
+    <:actions>
+      <.button phx-disable-with="Saving...">Save Asic miner</.button>
+    </:actions>
+  </.simple_form>
+</div>
