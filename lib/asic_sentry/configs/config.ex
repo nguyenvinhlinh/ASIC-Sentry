@@ -2,6 +2,8 @@ defmodule AsicSentry.Configs.Config do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @available_key_list ["mininig_rig_commander_api_url"]
+
   schema "configs" do
     field :value, :string
     field :key, :string
@@ -14,5 +16,8 @@ defmodule AsicSentry.Configs.Config do
     config
     |> cast(attrs, [:key, :value])
     |> validate_required([:key, :value])
+    |> unique_constraint([:key])
   end
+
+  def get_available_key_list(), do: @available_key_list
 end

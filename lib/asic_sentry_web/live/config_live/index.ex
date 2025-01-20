@@ -4,6 +4,8 @@ defmodule AsicSentryWeb.ConfigLive.Index do
   alias AsicSentry.Configs
   alias AsicSentry.Configs.Config
 
+  embed_templates "index_html/*"
+
   @impl true
   def mount(_params, _session, socket) do
     {:ok, stream(socket, :configs, Configs.list_configs())}

@@ -2,38 +2,15 @@ defmodule AsicSentryWeb.ConfigLive.FormComponent do
   use AsicSentryWeb, :live_component
 
   alias AsicSentry.Configs
-
-  @impl true
-  def render(assigns) do
-    ~H"""
-    <div>
-      <.header>
-        {@title}
-        <:subtitle>Use this form to manage config records in your database.</:subtitle>
-      </.header>
-
-      <.simple_form
-        for={@form}
-        id="config-form"
-        phx-target={@myself}
-        phx-change="validate"
-        phx-submit="save"
-      >
-        <.input field={@form[:key]} type="text" label="Key" />
-        <.input field={@form[:value]} type="text" label="Value" />
-        <:actions>
-          <.button phx-disable-with="Saving...">Save Config</.button>
-        </:actions>
-      </.simple_form>
-    </div>
-    """
-  end
+  alias AsicSentry.Configs.Config
 
   @impl true
   def update(%{config: config} = assigns, socket) do
+    config_key_option_list = Config.get_available_key_list()
     {:ok,
      socket
      |> assign(assigns)
+     |> assign(:config_key_option_list, config_key_option_list)
      |> assign_new(:form, fn ->
        to_form(Configs.change_config(config))
      end)}
