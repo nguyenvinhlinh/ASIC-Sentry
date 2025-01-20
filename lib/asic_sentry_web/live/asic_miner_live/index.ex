@@ -16,14 +16,19 @@ defmodule AsicSentryWeb.AsicMinerLive.Index do
   end
 
   defp apply_action(socket, :edit, %{"id" => id}) do
+    asic_model_option_list = AsicMiner.get_available_asic_model_list()
+
     socket
     |> assign(:page_title, "Edit Asic miner")
+    |> assign(:asic_model_option_list, asic_model_option_list)
     |> assign(:asic_miner, AsicMiners.get_asic_miner!(id))
   end
 
   defp apply_action(socket, :new, _params) do
+    asic_model_option_list = AsicMiner.get_available_asic_model_list()
     socket
     |> assign(:page_title, "New Asic miner")
+    |> assign(:asic_model_option_list, asic_model_option_list)
     |> assign(:asic_miner, %AsicMiner{})
   end
 
