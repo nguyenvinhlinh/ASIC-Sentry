@@ -3,10 +3,9 @@
             md:mx-4 md:mb-4 md:p-6
             bg-white border border-gray-200 rounded-lg shadow-sm
             dark:border-gray-700  dark:bg-gray-800">
-  <!-- <h3 class="mb-4 text-xl font-semibold dark:text-white">New ASIC miners waiting signals from sentry!</h3> -->
 
   <.table
-    id="asic_miners_not_activated"
+    id="asic_miners"
     rows={@streams.asic_miners}
   >
     <:col :let={{_id, asic_miner}} label="ID" class="hidden md:table-cell">{asic_miner.id}</:col>

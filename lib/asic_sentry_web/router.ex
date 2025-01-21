@@ -27,9 +27,10 @@ defmodule AsicSentryWeb.Router do
     live "/configs", ConfigLive.Index, :index
     live "/configs/new", ConfigLive.Index, :new
     live "/configs/:id/edit", ConfigLive.Index, :edit
-
     live "/configs/:id", ConfigLive.Show, :show
     live "/configs/:id/show/edit", ConfigLive.Show, :edit
+
+    live "/realtime_logs", RealtimeLog.Index, :index
 
   end
 
