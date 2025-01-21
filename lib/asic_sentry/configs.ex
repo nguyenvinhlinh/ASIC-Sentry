@@ -37,6 +37,8 @@ defmodule AsicSentry.Configs do
   """
   def get_config!(id), do: Repo.get!(Config, id)
 
+  def get_config_by_key(key), do: Repo.get_by(Config, key: key)
+
   @doc """
   Creates a config.
 

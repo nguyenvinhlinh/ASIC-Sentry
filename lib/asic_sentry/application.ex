@@ -17,6 +17,7 @@ defmodule AsicSentry.Application do
       # Start a worker by calling: AsicSentry.Worker.start_link(arg)
       # {AsicSentry.Worker, arg},
       # Start to serve requests, typically the last entry
+      {AsicSentry.Sentry, nil},
       AsicSentryWeb.Endpoint
     ]
 
