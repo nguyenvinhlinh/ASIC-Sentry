@@ -39,6 +39,15 @@ defmodule AsicSentry.Configs do
 
   def get_config_by_key(key), do: Repo.get_by(Config, key: key)
 
+  def get_mining_rig_commander_api_url() do
+    config = get_config_by_key("mininig_rig_commander_api_url")
+    if Kernel.is_nil(config) do
+      {:error, :config_not_found}
+    else
+      {:ok, config.value}
+    end
+  end
+
   @doc """
   Creates a config.
 

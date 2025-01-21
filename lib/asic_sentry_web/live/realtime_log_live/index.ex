@@ -13,6 +13,7 @@ defmodule AsicSentryWeb.RealtimeLog.Index do
     {:ok, socket_mod}
   end
 
+  @impl true
   def handle_info({:realtime_log_channel, :new, log}, socket) do
     timestamp_mod = Map.get(log, :timestamp)
     |> NaiveDateTime.truncate(:second)

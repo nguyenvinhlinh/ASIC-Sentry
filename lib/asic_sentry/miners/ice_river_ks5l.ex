@@ -17,6 +17,11 @@ defmodule AsicSentry.Miners.IceRiverKS5L do
   end
 
   @impl true
+  def fetch_asic_specs(ip) do
+    fetch_asic_operational_data(ip)
+  end
+
+  @impl true
   def convert_response_body_to_map(body_response) do
     case Jason.decode(body_response) do
       {:ok, body_response_map} -> {:ok, body_response_map}
@@ -109,6 +114,63 @@ defmodule AsicSentry.Miners.IceRiverKS5L do
         Logger.error(error)
         {:error, :submit_asic_operational_data, full_api_url}
     end
+  end
+
+  @impl true
+  def submit_asic_specs(commander_api_url, api_code, data) do
+    full_api_url = "#{commander_api_url}/asic_miners/specs"
+    header_list = [
+      {"content-type", "application/json"},
+      {"api_code", api_code}
+    ]
+    case Tesla.post(full_api_url, Jason.encode!(data), [headers: header_list]) do
+      {:ok, %Tesla.Env{status: 200}=result } -> {:ok, result}
+      {:ok, %Tesla.Env{status: 401}} -> {:error, :invalid_api_code, api_code}
+      {:ok, %Tesla.Env{body: body}} ->
+        Logger.error(body)
+        {:error, :submit_asic_specs, full_api_url}
+      {:error, error} ->
+        Logger.error(error)
+        {:error, :submit_asic_specs, full_api_url}
+    end
+  end
+
+  @impl true
+  def compose_asic_specs(response_body_map) do
+    %{
+      "model" => "Ice River KS5L",
+      "model_variant" => "unknown",
+      "firmware_version" => get_firmware_version(response_body_map),
+      "software_version" => get_software_version(response_body_map)
+    }
+  end
+
+  def get_firmware_version(response_body_map) do
+    firm_type = response_body_map
+    |> Map.get("data")
+    |> Map.get("firmtype")
+
+    firm_ver_1 = response_body_map
+    |> Map.get("data")
+    |> Map.get("firmver1")
+
+    firm_ver_2 = response_body_map
+    |> Map.get("data")
+    |> Map.get("firmver2")
+
+    "#{firm_type} #{firm_ver_1} #{firm_ver_2}"
+  end
+
+  def get_software_version(response_body_map) do
+    soft_ver_1 = response_body_map
+    |> Map.get("data")
+    |> Map.get("softver1")
+
+    soft_ver_2 = response_body_map
+    |> Map.get("data")
+    |> Map.get("softver2")
+
+    "#{soft_ver_1} #{soft_ver_2}"
   end
 
   def get_pool_rejection_rate(body_response_map) do

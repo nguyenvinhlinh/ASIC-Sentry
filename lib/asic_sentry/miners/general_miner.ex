@@ -25,7 +25,7 @@ defmodule AsicSentry.Miners.GeneralMiner do
 
   @doc "Compose ASIC specs"
   @callback compose_asic_specs(response_body_map()) :: asic_specs()
-
+  
   @doc "Submit ASIC specs to mining rig commander"
   @callback submit_asic_specs(commander_api_url(), api_code(), asic_specs()) :: {:ok}
 end

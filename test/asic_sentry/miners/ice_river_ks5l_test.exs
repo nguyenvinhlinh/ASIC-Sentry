@@ -95,8 +95,19 @@ defmodule AsicSentry.Miners.IceRiverKS5LTest do
     assert expected_result == test_result
   end
 
+  test "get_firmware_version/1",
+    %{body_response_map: body_response_map} do
+    expected_result = "Factory BOOT_3_1 image_1.0"
+    test_result = AsicSentry.Miners.IceRiverKS5L.get_firmware_version(body_response_map)
+    assert expected_result == test_result
+  end
 
-
+  test "get_software_version/1",
+    %{body_response_map: body_response_map} do
+    expected_result = "ICM168_3_2_10_ks5L_miner ICM168_3_2_10_ks5L_bg"
+    test_result = AsicSentry.Miners.IceRiverKS5L.get_software_version(body_response_map)
+    assert expected_result == test_result
+  end
 
   def sample_body_response_map do
     %{
