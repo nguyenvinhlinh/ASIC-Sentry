@@ -18,18 +18,14 @@ defmodule AsicSentry.Sentry do
   def start_link(_args), do: start_link()
   def start_link() do
     {:ok, pid} = GenServer.start_link(__MODULE__, nil, name: __MODULE__)
-    message = "[#{__MODULE__}] collect and send operational data for all asic miners after 5 seconds"
-    Logger.info(message)
-    RealtimeLogs.broadcast("INFO", message)
+    log_and_broadcast(:info, "[#{__MODULE__}] collect and send operational data for all asic miners after 5 seconds")
     Process.send_after(__MODULE__, :collect_and_send_operational_data_for_all_asic_miners, 5_000)
     {:ok, pid}
   end
 
   def handle_info(:collect_and_send_operational_data_for_all_asic_miners, state) do
     collect_and_send_operational_data_for_all_asic_miners()
-    message = "[#{__MODULE__}] collect and send operational data for all asic miners after 10 seconds"
-    Logger.info(message)
-    RealtimeLogs.broadcast("INFO", message)
+    log_and_broadcast(:info, "[#{__MODULE__}] collect and send operational data for all asic miners after 10 seconds")
     Process.send_after(__MODULE__, :collect_and_send_operational_data_for_all_asic_miners, 10_000)
     {:noreply, state}
   end
@@ -43,8 +39,7 @@ defmodule AsicSentry.Sentry do
     else
       {:error, :config_not_found} ->
         message = "[#{__MODULE__}] Cannot find config for mininig_rig_commander_api_url."
-        Logger.error(message)
-        RealtimeLogs.broadcast("ERROR", message)
+        log_and_broadcast(:error, message)
       other_error -> other_error
     end
   end
@@ -54,29 +49,25 @@ defmodule AsicSentry.Sentry do
          {:ok, response_body} <- asic_miner_module.fetch_asic_operational_data(asic_miner.ip),
          {:ok, response_body_map} <- asic_miner_module.convert_response_body_to_map(response_body),
            composed_data <- asic_miner_module.compose_asic_operational_data(response_body_map),
-         {:ok, %Tesla.Env{}=result} <-asic_miner_module.submit_asic_operational_data(mining_rig_commander_api_url, asic_miner.api_code, composed_data)
-      do
-        message = "[#{asic_miner_module}][ASIC Miner: ##{asic_miner.id}] Collect and send operational data successfully."
-        RealtimeLogs.broadcast("INFO", message)
-        Logger.info(message)
-      else
-        {:error, :fetch_asic_operational_data, full_api_url} ->
-          message = "[ASIC Miner: ##{asic_miner.id}] Cannot fetch asic operational data from #{full_api_url}."
-        RealtimeLogs.broadcast("ERROR", message)
-          Logger.error(message)
-        {:error, :convert_to_map} ->
-          message = "[ASIC Miner: ##{asic_miner.id}] Cannot convert response's body from string to map %{}."
-          RealtimeLogs.broadcast("ERROR", message)
-          Logger.error(message)
-        {:error, :invalid_api_code, api_code} ->
-          message = "[ASIC Miner: ##{asic_miner.id}] Invalid API_CODE  #{api_code}"
-          RealtimeLogs.broadcast("ERROR", message)
-          Logger.error(message)
-        {:error, :submit_asic_operational_data, full_api_url} ->
-          message = "[ASIC Miner: ##{asic_miner.id}] Cannot submit to #{full_api_url}"
-          RealtimeLogs.broadcast("ERROR", message)
-          Logger.error(message)
-        other_error -> other_error
+         {:ok, %Tesla.Env{}} <- asic_miner_module.submit_asic_operational_data(mining_rig_commander_api_url, asic_miner.api_code, composed_data) do
+
+      log_and_broadcast(:info, "[#{asic_miner_module}][ASIC Miner: ##{asic_miner.id}] Collect and send operational data successfully.")
+
+    else
+      {:error, :fetch_asic_operational_data, full_api_url} ->
+        log_and_broadcast(:error, "[ASIC Miner: ##{asic_miner.id}] Cannot fetch asic operational data from #{full_api_url}.")
+
+      {:error, :convert_to_map} ->
+        log_and_broadcast(:error, "[ASIC Miner: ##{asic_miner.id}] Cannot convert response's body from string to map %{}.")
+
+      {:error, :invalid_api_code, api_code} ->
+        log_and_broadcast(:error, "[ASIC Miner: ##{asic_miner.id}] Invalid API_CODE  #{api_code}")
+
+      {:error, :submit_asic_operational_data, full_api_url} ->
+        log_and_broadcast(:error, "[ASIC Miner: ##{asic_miner.id}] Cannot submit to #{full_api_url}")
+
+      other_error ->
+        log_and_broadcast(:error, "[ASIC Miner: ##{asic_miner.id}] other_error #{other_error}")
     end
   end
 
@@ -96,5 +87,15 @@ defmodule AsicSentry.Sentry do
     else
       {:ok, asic_miner_module}
     end
+  end
+
+  def log_and_broadcast(:error, message) do
+    Logger.error(message)
+    RealtimeLogs.broadcast("ERROR", message)
+  end
+
+  def log_and_broadcast(:info, message) do
+    Logger.info(message)
+    RealtimeLogs.broadcast("INFO", message)
   end
 end
