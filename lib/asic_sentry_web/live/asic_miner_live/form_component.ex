@@ -42,7 +42,6 @@ defmodule AsicSentryWeb.AsicMinerLive.FormComponent do
     case AsicMiners.create_asic_miner(asic_miner_params) do
       {:ok, asic_miner} ->
         notify_parent({:saved, asic_miner})
-
         {:noreply,
          socket
          |> put_flash(:info, "ASIC miner created successfully")

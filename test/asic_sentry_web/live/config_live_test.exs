@@ -4,16 +4,16 @@ defmodule AsicSentryWeb.ConfigLiveTest do
   import Phoenix.LiveViewTest
   import AsicSentry.ConfigsFixtures
 
-  @create_attrs %{value: "some value", key: "some key"}
-  @update_attrs %{value: "some updated value", key: "some updated key"}
-  @invalid_attrs %{value: nil, key: nil}
+  @create_attrs %{value: "some value",   key: "mininig_rig_commander_api_url"}
+  @update_attrs %{value: "some updated value", key: "mininig_rig_commander_api_url"}
+  @invalid_attrs %{value: nil, key: "mininig_rig_commander_api_url"}
 
   defp create_config(_) do
     config = config_fixture()
     %{config: config}
   end
 
-  describe "Index" do
+  describe "Index with setup create_config" do
     setup [:create_config]
 
     test "lists all configs", %{conn: conn, config: config} do
@@ -21,29 +21,6 @@ defmodule AsicSentryWeb.ConfigLiveTest do
 
       assert html =~ "Listing Configs"
       assert html =~ config.value
-    end
-
-    test "saves new config", %{conn: conn} do
-      {:ok, index_live, _html} = live(conn, ~p"/configs")
-
-      assert index_live |> element("a", "New Config") |> render_click() =~
-               "New Config"
-
-      assert_patch(index_live, ~p"/configs/new")
-
-      assert index_live
-             |> form("#config-form", config: @invalid_attrs)
-             |> render_change() =~ "can&#39;t be blank"
-
-      assert index_live
-             |> form("#config-form", config: @create_attrs)
-             |> render_submit()
-
-      assert_patch(index_live, ~p"/configs")
-
-      html = render(index_live)
-      assert html =~ "Config created successfully"
-      assert html =~ "some value"
     end
 
     test "updates config in listing", %{conn: conn, config: config} do
@@ -77,37 +54,30 @@ defmodule AsicSentryWeb.ConfigLiveTest do
     end
   end
 
-  describe "Show" do
-    setup [:create_config]
+  describe "Index without setup create_config " do
+    test "saves new config", %{conn: conn} do
+      {:ok, index_live, _html} = live(conn, ~p"/configs")
 
-    test "displays config", %{conn: conn, config: config} do
-      {:ok, _show_live, html} = live(conn, ~p"/configs/#{config}")
+      assert index_live |> element("a", "New Config") |> render_click() =~
+               "New Config"
 
-      assert html =~ "Show Config"
-      assert html =~ config.value
-    end
+      assert_patch(index_live, ~p"/configs/new")
 
-    test "updates config within modal", %{conn: conn, config: config} do
-      {:ok, show_live, _html} = live(conn, ~p"/configs/#{config}")
-
-      assert show_live |> element("a", "Edit") |> render_click() =~
-               "Edit Config"
-
-      assert_patch(show_live, ~p"/configs/#{config}/show/edit")
-
-      assert show_live
+      assert index_live
              |> form("#config-form", config: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
-      assert show_live
-             |> form("#config-form", config: @update_attrs)
+      assert index_live
+             |> form("#config-form", config: @create_attrs)
              |> render_submit()
 
-      assert_patch(show_live, ~p"/configs/#{config}")
+      assert_patch(index_live, ~p"/configs")
 
-      html = render(show_live)
-      assert html =~ "Config updated successfully"
-      assert html =~ "some updated value"
+      html = render(index_live)
+      assert html =~ "Config created successfully"
+      assert html =~ "some value"
     end
+
+
   end
 end

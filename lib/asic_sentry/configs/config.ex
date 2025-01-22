@@ -17,6 +17,7 @@ defmodule AsicSentry.Configs.Config do
     |> cast(attrs, [:key, :value])
     |> validate_required([:key, :value])
     |> unique_constraint([:key])
+    |> validate_inclusion(:key, @available_key_list)
   end
 
   def get_available_key_list(), do: @available_key_list

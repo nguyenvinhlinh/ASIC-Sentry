@@ -11,8 +11,8 @@ defmodule AsicSentry.ConfigsFixtures do
     {:ok, config} =
       attrs
       |> Enum.into(%{
-        key: "some key",
-        value: "some value"
+          key: "mininig_rig_commander_api_url",
+          value: "some value"
       })
       |> AsicSentry.Configs.create_config()
 

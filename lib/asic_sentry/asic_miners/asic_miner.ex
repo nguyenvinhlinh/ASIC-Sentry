@@ -25,6 +25,7 @@ defmodule AsicSentry.AsicMiners.AsicMiner do
     |> update_change(:api_code, &trim/1)
     |> update_change(:ip, &trim/1)
     |> validate_required([:api_code, :asic_model, :ip])
+    |> validate_inclusion(:asic_model, @available_asic_model_list)
     |> unique_constraint([:api_code])
   end
 

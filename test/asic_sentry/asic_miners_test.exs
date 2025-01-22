@@ -21,12 +21,12 @@ defmodule AsicSentry.AsicMinersTest do
     end
 
     test "create_asic_miner/1 with valid data creates a asic_miner" do
-      valid_attrs = %{ip: "some ip", api_code: "some api_code", asic_model: "some asic_model"}
+      valid_attrs = %{ip: "some ip", api_code: "some api_code", asic_model: "Ice River - KS5L"}
 
       assert {:ok, %AsicMiner{} = asic_miner} = AsicMiners.create_asic_miner(valid_attrs)
       assert asic_miner.ip == "some ip"
       assert asic_miner.api_code == "some api_code"
-      assert asic_miner.asic_model == "some asic_model"
+      assert asic_miner.asic_model == "Ice River - KS5L"
     end
 
     test "create_asic_miner/1 with invalid data returns error changeset" do
@@ -35,12 +35,12 @@ defmodule AsicSentry.AsicMinersTest do
 
     test "update_asic_miner/2 with valid data updates the asic_miner" do
       asic_miner = asic_miner_fixture()
-      update_attrs = %{ip: "some updated ip", api_code: "some updated api_code", asic_model: "some updated asic_model"}
+      update_attrs = %{ip: "some updated ip", api_code: "some updated api_code", asic_model: "Ice River - KS5L"}
 
       assert {:ok, %AsicMiner{} = asic_miner} = AsicMiners.update_asic_miner(asic_miner, update_attrs)
       assert asic_miner.ip == "some updated ip"
       assert asic_miner.api_code == "some updated api_code"
-      assert asic_miner.asic_model == "some updated asic_model"
+      assert asic_miner.asic_model == "Ice River - KS5L"
     end
 
     test "update_asic_miner/2 with invalid data returns error changeset" do

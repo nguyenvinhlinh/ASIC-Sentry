@@ -12,7 +12,7 @@ defmodule AsicSentry.AsicMinersFixtures do
       attrs
       |> Enum.into(%{
         api_code: "some api_code",
-        asic_model: "some asic_model",
+        asic_model: "Ice River - KS5L",
         ip: "some ip"
       })
       |> AsicSentry.AsicMiners.create_asic_miner()

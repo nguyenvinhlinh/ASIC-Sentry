@@ -45,7 +45,6 @@ defmodule AsicSentryWeb.ConfigLive.FormComponent do
     case Configs.create_config(config_params) do
       {:ok, config} ->
         notify_parent({:saved, config})
-
         {:noreply,
          socket
          |> put_flash(:info, "Config created successfully")

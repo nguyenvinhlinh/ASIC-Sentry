@@ -21,11 +21,11 @@ defmodule AsicSentry.ConfigsTest do
     end
 
     test "create_config/1 with valid data creates a config" do
-      valid_attrs = %{value: "some value", key: "some key"}
+      valid_attrs = %{value: "some value", key: "mininig_rig_commander_api_url"}
 
       assert {:ok, %Config{} = config} = Configs.create_config(valid_attrs)
       assert config.value == "some value"
-      assert config.key == "some key"
+      assert config.key == "mininig_rig_commander_api_url"
     end
 
     test "create_config/1 with invalid data returns error changeset" do
@@ -34,11 +34,11 @@ defmodule AsicSentry.ConfigsTest do
 
     test "update_config/2 with valid data updates the config" do
       config = config_fixture()
-      update_attrs = %{value: "some updated value", key: "some updated key"}
+      update_attrs = %{value: "some updated value", key: "mininig_rig_commander_api_url"}
 
       assert {:ok, %Config{} = config} = Configs.update_config(config, update_attrs)
       assert config.value == "some updated value"
-      assert config.key == "some updated key"
+      assert config.key == "mininig_rig_commander_api_url"
     end
 
     test "update_config/2 with invalid data returns error changeset" do
