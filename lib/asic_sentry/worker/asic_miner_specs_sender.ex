@@ -12,7 +12,7 @@ defmodule AsicSentry.Worker.AsicMinerSpecsSender do
 
   def start_link(_args) do
     {:ok, pid} = GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
-    Logger.info("[#{__MODULE__}] Started")
+    Logger.info("[AsicSentry.Worker.AsicMinerSpecsSender] Started")
     Process.send_after(__MODULE__, :collect_and_send_specs_for_all_asic_miners, 5_000)
     {:ok, pid}
   end
@@ -33,7 +33,7 @@ defmodule AsicSentry.Worker.AsicMinerSpecsSender do
       end
     else
       {:error, :config_not_found} ->
-        message = "[#{__MODULE__}] Cannot find config for mininig_rig_commander_api_url."
+        message = "[AsicSentry.Worker.AsicMinerSpecsSender] Cannot find config for mininig_rig_commander_api_url."
         log_and_broadcast(:error, message)
       other_error -> other_error
     end
@@ -48,26 +48,25 @@ defmodule AsicSentry.Worker.AsicMinerSpecsSender do
          {:ok, %Tesla.Env{}} <- asic_miner_module.submit_asic_specs(mining_rig_commander_api_url, asic_miner.api_code, composed_data) do
 
       AsicMinerSpecsStash.put(asic_miner.id, composed_data)
-      log_and_broadcast(:info, "[#{__MODULE__}][ASIC Miner: ##{asic_miner.id}] Collect and send specs successfully.")
+      log_and_broadcast(:info, "[AsicMinerSpecsSender][ASIC Miner: ##{asic_miner.id}] Collect and send specs successfully.")
     else
       {:error, :fetch_asic_operational_data, full_api_url} ->
-        log_and_broadcast(:error, "[#{__MODULE__}][ASIC Miner: ##{asic_miner.id}] Cannot fetch asic operational data from #{full_api_url}.")
+        log_and_broadcast(:error, "[AsicMinerSpecsSender][ASIC Miner: ##{asic_miner.id}] Cannot fetch asic operational data from #{full_api_url}.")
 
       {:error, :convert_to_map} ->
-        log_and_broadcast(:error, "[#{__MODULE__}][ASIC Miner: ##{asic_miner.id}] Cannot convert response's body from string to map %{}.")
+        log_and_broadcast(:error, "[AsicMinerSpecsSender][ASIC Miner: ##{asic_miner.id}] Cannot convert response's body from string to map %{}.")
 
       {:error, :duplicated_composed_data} ->
-        log_and_broadcast(:info, "[#{__MODULE__}][ASIC Miner: ##{asic_miner.id}] Specs has no changes. Skip submitting!")
+        log_and_broadcast(:info, "[AsicMinerSpecsSender][ASIC Miner: ##{asic_miner.id}] Specs has no changes. Skip submitting!")
 
       {:error, :invalid_api_code, api_code} ->
-        log_and_broadcast(:error, "[#{__MODULE__}][ASIC Miner: ##{asic_miner.id}] Invalid API_CODE  #{api_code}")
+        log_and_broadcast(:error, "[AsicMinerSpecsSender][ASIC Miner: ##{asic_miner.id}] Invalid API_CODE  #{api_code}")
 
       {:error, :submit_asic_specs, full_api_url} ->
-        log_and_broadcast(:error, "[#{__MODULE__}][ASIC Miner: ##{asic_miner.id}] Cannot submit to #{full_api_url}")
+        log_and_broadcast(:error, "[AsicMinerSpecsSender][ASIC Miner: ##{asic_miner.id}] Cannot submit to #{full_api_url}")
 
       other_error ->
-        log_and_broadcast(:error, "[#{__MODULE__}][ASIC Miner: ##{asic_miner.id}] other_error #{other_error}")
-
+        log_and_broadcast(:error, "[AsicMinerSpecsSender][ASIC Miner: ##{asic_miner.id}] other_error #{other_error}")
     end
   end
 
