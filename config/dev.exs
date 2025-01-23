@@ -2,13 +2,11 @@ import Config
 
 # Configure your database
 config :asic_sentry, AsicSentry.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "asic_sentry_dev",
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  [database: "/home/nguyenvinhlinh/Projects/asic_sentry/data/dev-data.db",
+   journal_mode: :wal,
+   cache_size: -64000,
+   temp_store: :memory,
+   pool_size: 5]
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -19,7 +17,7 @@ config :asic_sentry, AsicSentry.Repo,
 config :asic_sentry, AsicSentryWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: 4000],
+  http: [ip: {127, 0, 0, 1}, port: 4001],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
