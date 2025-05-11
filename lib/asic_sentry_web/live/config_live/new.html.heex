@@ -1,0 +1,74 @@
+<Layouts.nexus_app flash={@flash} >
+  <div id="layout-content">
+    <!-- Start: asic_miner_live/new/ top -->
+    <div class="flex items-center justify-between">
+      <h3 class="text-lg font-medium">Create new Config</h3>
+      <div class="breadcrumbs hidden p-0 text-sm sm:inline">
+        <ul>
+          <li><a href={~p"/"} >ASIC Sentry</a></li>
+          <li><a href={~p"/configs"} >Configs</a></li>
+          <li class="opacity-80">New</li>
+        </ul>
+      </div>
+    </div>
+    <!-- End: asic_miner_live/new/ top -->
+
+    <!-- Start: asic_miner_live/new form -->
+    <div class="mt-6">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 2xl:grid-cols-3">
+        <div class="card bg-base-100 shadow">
+          <div class="card-body">
+            <div class="card-title">Config</div>
+            <.form id="asic_miner_new_form" for={@form} method="post" action={~p"/configs/new"}
+              phx-change="validate"
+              phx-submit="save">
+            <fieldset class="fieldset mt-2 grid grid-cols-1 gap-4">
+              <div class="space-y-2">
+                <label class="fieldset-label" for={@form[:key].id} >
+                  Key
+                </label>
+                <select class="select w-full" id={@form[:key].id} name={@form[:key].name} >
+                  { Phoenix.HTML.Form.options_for_select(@key_option_list, @form[:key].value) }
+                </select>
+                <div :if={used_input?(@form[:key])} >
+                  <p :for={error <- @form[:key].errors} class="alert alert-error alert-soft">
+                    {nx_error(error)}
+                  </p>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="fieldset mt-2 grid grid-cols-1 gap-4">
+              <div class="space-y-2">
+                <label class="fieldset-label" for={@form[:value].name} >
+                  Value
+                </label>
+                <input class={input_class(@form[:value])}
+                       type="text" id={@form[:value].id} name={@form[:value].name} value={@form[:value].value}
+                       placeholder="Value">
+                <div :if={used_input?(@form[:value])} >
+                  <p :for={error <- @form[:value].errors} class="alert alert-error alert-soft">
+                    {nx_error(error)}
+                  </p>
+                </div>
+              </div>
+            </fieldset>
+
+            <div class="mt-6 flex justify-end gap-3">
+              <a class="btn btn-sm btn-ghost" href={~p"/configs"} >
+                <span class="iconify lucide--x size-4"></span>
+                Cancel
+              </a>
+              <button class="btn btn-sm btn-primary" type="submit">
+                <span class="iconify lucide--check size-4"></span>
+                Create New
+              </button>
+            </div>
+            </.form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End: asic_miner_live/new form -->
+  </div>
+</Layouts.nexus_app>

@@ -26,12 +26,12 @@ defmodule AsicSentryWeb.Router do
   scope "/", AsicSentryWeb do
     pipe_through :browser_nexus
 
-    live "/asic_miners", AsicMinerLive.Index, :index
-    live "/asic_miners/new", AsicMinerLive.New, :new
-    live "/asic_miners/:id/edit", AsicMinerLive.Edit, :edit
+    live "/asic_miners",          AsicMinerLive.Index, :index
+    live "/asic_miners/new",      AsicMinerLive.New,   :new
+    live "/asic_miners/:id/edit", AsicMinerLive.Edit,  :edit
 
-    live "/configs", ConfigLive.Index, :index
-    
+    live "/configs",     ConfigLive.Index, :index
+    live "/configs/new", ConfigLive.New,   :new
     #live "/configs/new", ConfigLive.Index, :new
     #live "/configs/:id/edit", ConfigLive.Index, :edit
     #live "/configs/:id", ConfigLive.Show, :show
