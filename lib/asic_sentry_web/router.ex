@@ -28,7 +28,7 @@ defmodule AsicSentryWeb.Router do
 
     live "/asic_miners", AsicMinerLive.Index, :index
     live "/asic_miners/new", AsicMinerLive.New, :new
-    live "/asic_miners/:id/edit", AsicMinerLive.Index, :edit
+    live "/asic_miners/:id/edit", AsicMinerLive.Edit, :edit
   end
   scope "/", AsicSentryWeb do
     pipe_through :browser
