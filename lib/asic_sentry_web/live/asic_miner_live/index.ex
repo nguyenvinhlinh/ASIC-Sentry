@@ -34,6 +34,12 @@ defmodule AsicSentryWeb.AsicMinerLive.Index do
   def handle_event("delete", %{"id" => id}, socket) do
     asic_miner = AsicMiners.get_asic_miner!(id)
     {:ok, _} = AsicMiners.delete_asic_miner(asic_miner)
-    {:noreply, stream_delete(socket, :asic_miner_list, asic_miner)}
+
+    message = "ASIC Miner ##{asic_miner.id} deleted."
+    socket_mod = socket
+    |> put_flash(:info, message)
+    |> stream_delete(:asic_miner_list, asic_miner)
+
+    {:noreply, socket_mod}
   end
 end

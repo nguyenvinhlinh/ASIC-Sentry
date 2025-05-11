@@ -19,6 +19,12 @@ defmodule AsicSentryWeb.ConfigLive.Index do
   def handle_event("delete", %{"id" => id}, socket) do
     config = Configs.get_config!(id)
     {:ok, _} = Configs.delete_config(config)
-    {:noreply, stream_delete(socket, :configs, config)}
+
+    message = "Config #{config.key} deleted."
+
+    socket_mod = socket
+    |> put_flash(:info, message)
+    |> stream_delete(:config_list, config)
+    {:noreply, socket_mod}
   end
 end
