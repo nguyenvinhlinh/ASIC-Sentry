@@ -68,7 +68,7 @@ defmodule AsicSentryWeb do
   def live_component do
     quote do
       use Phoenix.LiveComponent
-      
+
       unquote(html_helpers())
     end
   end
@@ -97,6 +97,7 @@ defmodule AsicSentryWeb do
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
+      alias AsicSentryWeb.Layouts
 
       # Routes generation with the ~p sigil
       unquote(verified_routes())
