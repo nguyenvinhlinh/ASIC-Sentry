@@ -15,9 +15,8 @@ defmodule AsicSentryWeb.Layouts do
   def nexus_app(assigns) do
     ~H"""
     <.nx_flash_group flash={@flash} />
-    <.live_component module={AsicSentryWeb.Layouts.NexusTopbarLiveComponent} id="nexus_topbar" current_user={@current_user}/>
+    <.live_component module={AsicSentryWeb.Layouts.NexusTopbarLiveComponent} id="nexus_topbar"/>
     {render_slot(@inner_block)}
-
     """
   end
 end
