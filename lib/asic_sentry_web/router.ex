@@ -30,8 +30,10 @@ defmodule AsicSentryWeb.Router do
     live "/asic_miners/new",      AsicMinerLive.New,   :new
     live "/asic_miners/:id/edit", AsicMinerLive.Edit,  :edit
 
-    live "/configs",     ConfigLive.Index, :index
-    live "/configs/new", ConfigLive.New,   :new
+    live "/configs",          ConfigLive.Index, :index
+    live "/configs/new",      ConfigLive.New,   :new
+    live "/configs/:id/edit", ConfigLive.Edit,  :edit
+
     #live "/configs/new", ConfigLive.Index, :new
     #live "/configs/:id/edit", ConfigLive.Index, :edit
     #live "/configs/:id", ConfigLive.Show, :show

@@ -24,25 +24,25 @@
             </tr>
           </thead>
 
-          <tbody id="asic_miner" phx-update="stream" >
-            <tr :for={ {tr_id, asic_miner} <- @streams.config_list }  id={tr_id}
+          <tbody id="config_list" phx-update="stream" >
+            <tr :for={ {tr_id, config} <- @streams.config_list }  id={tr_id}
               class="hover:bg-base-200/40 cursor-pointer *:text-nowrap" >
-              <td>{asic_miner.id}</td>
-              <td>{asic_miner.key}</td>
-              <td>{asic_miner.value}</td>
-              <td>{asic_miner.inserted_at}</td>
-              <td>{asic_miner.updated_at}</td>
+              <td>{config.id}</td>
+              <td>{config.key}</td>
+              <td>{config.value}</td>
+              <td>{config.inserted_at}</td>
+              <td>{config.updated_at}</td>
               <td>
                 <div class="inline-flex">
-                  <.link id={"asic_miner-#{asic_miner.id}-edit"}
-                    href={~p"/asic_miners/#{asic_miner.id}/edit"}
-                    phx-click={JS.navigate(~p"/asic_miners/#{asic_miner.id}/edit")} >
+                  <.link id={"config-#{config.id}-edit"}
+                    href={~p"/configs/#{config.id}/edit"}
+                    phx-click={JS.navigate(~p"/configs/#{config.id}/edit")} >
                     <button class="btn btn-square btn-ghost btn-sm">
                       <span class="iconify lucide--pencil text-base-content/80 size-4"></span>
                     </button>
                   </.link>
-                  <.link id={"asic_miner-#{asic_miner.id}-delete"}
-                    phx-click={JS.push("delete", value: %{id: asic_miner.id}) |> hide("##{asic_miner.id}")}
+                  <.link id={"config-#{config.id}-delete"}
+                    phx-click={JS.push("delete", value: %{id: config.id}) }
                     data-confirm="Are you sure?" >
                     <button class="btn btn-square btn-error btn-outline btn-sm border-transparent" >
                       <span class="iconify lucide--trash size-4"></span>
