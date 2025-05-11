@@ -1,43 +1,59 @@
-<div class="mx-1 p-1 mb-1
-            sm:mx-2 sm:mb-2 sm:p-3
-            md:mx-4 md:mb-4 md:p-6
-            bg-white border border-gray-200 rounded-lg shadow-sm
-            dark:border-gray-700  dark:bg-gray-800">
-  <!-- <h3 class="mb-4 text-xl font-semibold dark:text-white">New ASIC miners waiting signals from sentry!</h3> -->
+<div class="mt-6">
+  <div class="bg-base-100 card shadow">
+    <div class="card-body p-0">
+      <div class="flex items-center justify-between px-5 pt-5">
+        <div class="inline-flex items-center gap-3">
+          <b>Configs</b>
+        </div>
+        <div class="inline-flex items-center gap-3">
+          <a id="asic_miners_new" class="btn btn-primary btn-sm max-sm:btn-square" href={~p"/configs/new"}>
+            <span class="iconify lucide--plus size-4"></span>
+            <span class="hidden sm:inline">New Config</span>
+          </a>
+        </div>
+      </div>
+      <div class="mt-4 overflow-auto">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>KEY</th>
+              <th>VALUE</th>
+              <th>INSERTED AT</th>
+              <th>UPDATED AT</th>
+            </tr>
+          </thead>
 
-  <.table
-    id="asic_miners_not_activated"
-    rows={@streams.configs}
-  >
-    <:col :let={{_id, config}} label="ID" class="hidden md:table-cell">{config.id}</:col>
-    <:col :let={{_id, config}} label="KEY">{config.key}</:col>
-    <:col :let={{_id, config}} label="VALUE">{config.value}</:col>
-    <:col :let={{_id, config}} label="INSERTED AT" class="hidden 2xl:table-cell">{config.inserted_at}</:col>
-    <:col :let={{_id, config}} label="UPDATED AT"  class="hidden 2xl:table-cell">{config.updated_at}</:col>
-
-    <:action :let={{_id, asic_miner}}>
-      <.link patch={~p"/configs/#{asic_miner}/edit"}>
-        <button type="button" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center
-          text-white rounded-lg bg-blue-700 hover:bg-blue-800
-          focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-          <.icon name="hero-pencil-square-solid" class="size-5" />
-          <span class="ml-1">Edit</span>
-        </button>
-
-      </.link>
-    </:action>
-    <:action :let={{id, asic_miner}}>
-      <.link
-        phx-click={JS.push("delete", value: %{id: asic_miner.id}) |> hide("##{id}")}
-        data-confirm="Are you sure?"
-      >
-        <button type="button"  class="inline-flex items-center px-3 mr-1 py-2 text-sm font-medium text-center
-          text-white bg-red-600 rounded-lg hover:bg-red-800
-          focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
-          <.icon name="hero-trash-solid" class="size-5" />
-          <span class="ml-1">Delete</span>
-        </button>
-      </.link>
-    </:action>
-  </.table>
+          <tbody id="asic_miner" phx-update="stream" >
+            <tr :for={ {tr_id, asic_miner} <- @streams.config_list }  id={tr_id}
+              class="hover:bg-base-200/40 cursor-pointer *:text-nowrap" >
+              <td>{asic_miner.id}</td>
+              <td>{asic_miner.key}</td>
+              <td>{asic_miner.value}</td>
+              <td>{asic_miner.inserted_at}</td>
+              <td>{asic_miner.updated_at}</td>
+              <td>
+                <div class="inline-flex">
+                  <.link id={"asic_miner-#{asic_miner.id}-edit"}
+                    href={~p"/asic_miners/#{asic_miner.id}/edit"}
+                    phx-click={JS.navigate(~p"/asic_miners/#{asic_miner.id}/edit")} >
+                    <button class="btn btn-square btn-ghost btn-sm">
+                      <span class="iconify lucide--pencil text-base-content/80 size-4"></span>
+                    </button>
+                  </.link>
+                  <.link id={"asic_miner-#{asic_miner.id}-delete"}
+                    phx-click={JS.push("delete", value: %{id: asic_miner.id}) |> hide("##{asic_miner.id}")}
+                    data-confirm="Are you sure?" >
+                    <button class="btn btn-square btn-error btn-outline btn-sm border-transparent" >
+                      <span class="iconify lucide--trash size-4"></span>
+                    </button>
+                  </.link>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

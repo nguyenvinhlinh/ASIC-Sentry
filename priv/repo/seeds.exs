@@ -20,4 +20,4 @@ Repo.delete_all(AsicMiner)
 %AsicMiner{ip: "192.168.1.3", api_code: "070bfdda68b76e37898c2f8e4e86cb25", asic_model: "Ice River - KS5L"} |> Repo.insert!
 
 Repo.delete_all(Config)
-%Config{key: "mininig_rig_commander_api_url", value: "http://mining-rig-monitor.xyz/api/v1"}
+%Config{key: "mininig_rig_commander_api_url", value: "http://mining-rig-monitor.xyz/api/v1"} |> Repo.insert!

@@ -29,6 +29,13 @@ defmodule AsicSentryWeb.Router do
     live "/asic_miners", AsicMinerLive.Index, :index
     live "/asic_miners/new", AsicMinerLive.New, :new
     live "/asic_miners/:id/edit", AsicMinerLive.Edit, :edit
+
+    live "/configs", ConfigLive.Index, :index
+    
+    #live "/configs/new", ConfigLive.Index, :new
+    #live "/configs/:id/edit", ConfigLive.Index, :edit
+    #live "/configs/:id", ConfigLive.Show, :show
+    #live "/configs/:id/show/edit", ConfigLive.Show, :edit
   end
   scope "/", AsicSentryWeb do
     pipe_through :browser
@@ -40,11 +47,11 @@ defmodule AsicSentryWeb.Router do
     # live "/asic_miners/:id/edit", AsicMinerLive.Index, :edit
 
 
-    live "/configs", ConfigLive.Index, :index
-    live "/configs/new", ConfigLive.Index, :new
-    live "/configs/:id/edit", ConfigLive.Index, :edit
-    live "/configs/:id", ConfigLive.Show, :show
-    live "/configs/:id/show/edit", ConfigLive.Show, :edit
+    # live "/configs", ConfigLive.Index, :index
+    # live "/configs/new", ConfigLive.Index, :new
+    # live "/configs/:id/edit", ConfigLive.Index, :edit
+    # live "/configs/:id", ConfigLive.Show, :show
+    # live "/configs/:id/show/edit", ConfigLive.Show, :edit
 
     live "/realtime_logs", RealtimeLog.Index, :index
 
