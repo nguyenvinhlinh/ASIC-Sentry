@@ -1,0 +1,72 @@
+<div role="navigation" aria-label="Navbar" class="flex items-center justify-between px-3" id="layout-topbar">
+  <div class="inline-flex items-center gap-3">
+    <label class="btn btn-square btn-ghost btn-sm" aria-label="Leftmenu toggle" for="layout-sidebar-toggle-trigger">
+      <span class="iconify lucide--menu size-5"></span>
+    </label>
+  </div>
+  <div class="inline-flex items-center gap-1.5">
+    <div class="dropdown dropdown-center">
+      <div tabindex="0" role="button" class="btn btn-sm btn-circle btn-ghost" aria-label="Theme toggle">
+        <span class="iconify lucide--sun hidden size-4 size-4.5 group-data-[theme=light]/html:inline"></span>
+        <span class="iconify lucide--moon hidden size-4 size-4.5 group-data-[theme=dark]/html:inline"></span>
+        <span class="iconify lucide--monitor hidden size-4 size-4.5 group-[:not([data-theme])]/html:inline"></span>
+        <span class="iconify lucide--palette hidden size-4 size-4.5 group-data-[theme=contrast]/html:inline group-data-[theme=dim]/html:inline group-data-[theme=material]/html:inline group-data-[theme=material-dark]/html:inline"></span>
+      </div>
+      <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 mt-2 w-36 space-y-0.5 p-1 shadow-sm">
+        <li phx-click={JS.dispatch("phx:set-theme", detail: %{theme: "light"})}>
+          <div class="group-data-[theme=light]/html:bg-base-200 flex gap-2" data-theme-control="light">
+            <span class="iconify lucide--sun size-4.5"></span>
+            <span class="font-medium">Light</span>
+          </div>
+        </li>
+        <li phx-click={JS.dispatch("phx:set-theme", detail: %{theme: "dark"})}>
+          <div class="group-data-[theme=dark]/html:bg-base-200 flex gap-2" data-theme-control="dark">
+            <span class="iconify lucide--moon size-4.5"></span>
+            <span class="font-medium">Dark</span>
+          </div>
+        </li>
+        <li phx-click={JS.dispatch("phx:set-theme", detail: %{theme: "system"})}>
+          <div class="group-[:not([data-theme])]/html:bg-base-200 flex gap-2" data-theme-control="system">
+            <span class="iconify lucide--monitor size-4.5"></span>
+            <span class="font-medium">System</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="dropdown dropdown-bottom dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost rounded-btn px-1.5">
+        <div class="flex items-center gap-2">
+          <div class="avatar">
+            <div class="bg-base-200 mask mask-squircle w-8">
+              <img alt="Avatar" src={~p"/images/avatars/1.png"} />
+            </div>
+          </div>
+          <div class="-space-y-0.5 text-start">
+            <p class="text-sm">ASIC Sentry Admin</p>
+            <p class="text-base-content/60 text-xs">Profile</p>
+          </div>
+        </div>
+      </div>
+      <div class="dropdown-content bg-base-100 rounded-box mt-4 w-44 shadow" tabindex="0">
+        <ul class="menu w-full p-2">
+          <li>
+            <a href="http://mrm-docs.hexalink.xyz/">
+              <span class="iconify lucide--help-circle size-4"></span>
+              <span>Help</span>
+            </a>
+          </li>
+        </ul>
+        <hr class="border-base-300">
+        <ul class="menu w-full p-2">
+          <li>
+            <.link href={~p"/users/log_out"} method="delete"
+            class="text-error hover:bg-error/10" >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+            Log out
+            </.link>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,15 +1,6 @@
-<._index_top />
-
-<div class="mx-1 p-1 mb-1
-            sm:mx-2 sm:mb-2 sm:p-3
-            md:mx-4 md:mb-4 md:p-6
-            bg-white border border-gray-200 rounded-lg shadow-sm
-            dark:border-gray-700  dark:bg-gray-800">
-  <.table
-    id="realtime_logs"
-    rows={@streams.log_list} >
-    <:col :let={{_id, log}} label="MESSAGE">
-      {log.timestamp} - {log.level} - {log.message}
-    </:col>
-  </.table>
-</div>
+<Layouts.nexus_app flash={@flash}>
+  <div id="layout-content">
+    <._index_top />
+    <._index_table streams={@streams} />
+  </div>
+</Layouts.nexus_app>

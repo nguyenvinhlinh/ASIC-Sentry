@@ -1,0 +1,94 @@
+<Layouts.nexus_app flash={@flash} >
+  <div id="layout-content">
+    <!-- Start: asic_miner_live/new/ top -->
+    <div class="flex items-center justify-between">
+      <h3 class="text-lg font-medium">Edit ASIC Miners</h3>
+      <div class="breadcrumbs hidden p-0 text-sm sm:inline">
+        <ul>
+          <li><a href={~p"/"} >ASIC Sentry</a></li>
+          <li><a href={~p"/asic_miners"} >ASIC Miners</a></li>
+          <li class="opacity-80">New</li>
+        </ul>
+      </div>
+    </div>
+    <!-- End: asic_miner_live/new/ top -->
+
+    <!-- Start: asic_miner_live/new form -->
+    <div class="mt-6">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 2xl:grid-cols-3">
+        <div class="card bg-base-100 shadow">
+          <div class="card-body">
+            <div class="card-title">ASIC Miner Information</div>
+            <.form id="asic_miner_new_form" for={@form} method="post"
+              phx-change="validate"
+              phx-submit="save">
+
+            <fieldset class="fieldset mt-2 grid grid-cols-1 gap-4">
+              <div class="space-y-2">
+                <label class="fieldset-label" for="api_code">
+                  API Code
+                </label>
+                <input class={input_class(@form[:api_code])}
+                       type="text" id={@form[:api_code].id} name={@form[:api_code].name} value={@form[:api_code].value}
+                       placeholder="API Code">
+                <div :if={used_input?(@form[:api_code])} >
+                  <p :for={error <- @form[:api_code].errors} class="alert alert-error alert-soft">
+                    {nx_error(error)}
+                  </p>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="fieldset mt-2 grid grid-cols-1 gap-4">
+              <div class="space-y-2">
+                <label class="fieldset-label" for="IP Address">
+                  IP Address
+                </label>
+                <input class={input_class(@form[:ip])}
+                       type="text" id={@form[:ip].id} name={@form[:ip].name} value={@form[:ip].value}
+                       placeholder="IP Address">
+                <div :if={used_input?(@form[:ip])} >
+                  <p :for={error <- @form[:ip].errors} class="alert alert-error alert-soft">
+                    {nx_error(error)}
+                  </p>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="fieldset mt-2 grid grid-cols-1 gap-4">
+              <div class="space-y-2">
+                <label class="fieldset-label" for="api_code">
+                  ASIC Model
+                </label>
+
+                <select class="select w-full" id={@form[:asic_model].id} name={@form[:asic_model].name} >
+                  { Phoenix.HTML.Form.options_for_select(@asic_model_option_list, @form[:asic_model].value) }
+                </select>
+                <div :if={used_input?(@form[:asic_model])} >
+                  <p :for={error <- @form[:asic_model].errors} class="alert alert-error alert-soft">
+                    {nx_error(error)}
+                  </p>
+                </div>
+              </div>
+            </fieldset>
+
+
+
+            <div class="mt-6 flex justify-end gap-3">
+              <a class="btn btn-sm btn-ghost" href={~p"/asic_miners"} >
+                <span class="iconify lucide--x size-4"></span>
+                Cancel
+              </a>
+              <button class="btn btn-sm btn-primary" type="submit">
+                <span class="iconify lucide--check size-4"></span>
+                Create New
+              </button>
+            </div>
+            </.form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End: asic_miner_live/new form -->
+  </div>
+</Layouts.nexus_app>

@@ -1,5 +1,5 @@
 defmodule AsicSentryWeb.RealtimeLog.Index do
-  use AsicSentryWeb, :live_view
+  use AsicSentryWeb, :live_view_container_grow
 
   embed_templates "index_html/*"
 

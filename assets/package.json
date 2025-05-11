@@ -1,14 +1,7 @@
 {
-  "name": "assets",
-  "version": "1.0.0",
-  "main": "tailwind.config.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "flowbite": "^2.5.2"
+    "@iconify-json/lucide": "^1.2.41",
+    "@iconify/tailwind4": "^1.0.6",
+    "daisyui": "^5.0.35"
   }
 }

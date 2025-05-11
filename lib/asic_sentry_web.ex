@@ -57,6 +57,14 @@ defmodule AsicSentryWeb do
     end
   end
 
+  def live_view_container_grow do
+    quote do
+      use Phoenix.LiveView, container: {:div, class: "grow"}
+
+      unquote(html_helpers())
+    end
+  end
+
   def live_component do
     quote do
       use Phoenix.LiveComponent
@@ -84,10 +92,12 @@ defmodule AsicSentryWeb do
       import Phoenix.HTML
       # Core UI components and translation
       import AsicSentryWeb.CoreComponents
+      import AsicSentryWeb.NexusComponents
       import AsicSentryWeb.Gettext
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
+      alias AsicSentryWeb.Layouts
 
       # Routes generation with the ~p sigil
       unquote(verified_routes())
