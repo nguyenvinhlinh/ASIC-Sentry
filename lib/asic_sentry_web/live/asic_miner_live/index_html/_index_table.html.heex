@@ -24,8 +24,9 @@
             </tr>
           </thead>
 
-          <tbody id="asic_miner_activated" phx-update="stream" >
-            <tr :for={ {tr_id, asic_miner} <- @streams.asic_miners}  id={tr_id} class="hover:bg-base-200/40 cursor-pointer *:text-nowrap">
+          <tbody id="asic_miner" phx-update="stream" >
+            <tr :for={ {tr_id, asic_miner} <- @streams.asic_miner_list}  id={tr_id}
+              class="hover:bg-base-200/40 cursor-pointer *:text-nowrap" >
               <td>
                 {asic_miner.id}
               </td>
@@ -43,10 +44,7 @@
                 <div class="flex items-center gap-2">
                   <span class="iconify lucide--network size-4"></span>{asic_miner.ip}
                 </div>
-
               </td>
-
-
               <td>
                 <div class="inline-flex">
                   <.link id={"asic_miner-#{asic_miner.id}-edit"}
