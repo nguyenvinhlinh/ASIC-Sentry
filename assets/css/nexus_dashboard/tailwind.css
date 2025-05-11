@@ -1,5 +1,6 @@
 /*** Tailwind CSS Presets ***/
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+@source "../../../lib/asic_sentry_web";
 
 /** Dark Variant with theme & system mode **/
 @variant dark {

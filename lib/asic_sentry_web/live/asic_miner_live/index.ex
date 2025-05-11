@@ -1,5 +1,5 @@
 defmodule AsicSentryWeb.AsicMinerLive.Index do
-  use AsicSentryWeb, :live_view
+  use AsicSentryWeb, :live_view_container_grow
 
   alias AsicSentry.AsicMiners
   alias AsicSentry.AsicMiners.AsicMiner
