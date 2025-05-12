@@ -4,7 +4,7 @@ defmodule AsicSentry.Worker.AsicMinerExpectedStatusFetcher do
   alias AsicSentry.Configs
 
   @single_api_path "/asic_miners/expected_status"
-  @bulk_api_path "/asic_miners/expected_status_many"
+  @bulk_api_path   "/asic_miners/expected_status_bulk"
 
   @impl true
   def init(_) do
@@ -34,8 +34,22 @@ defmodule AsicSentry.Worker.AsicMinerExpectedStatusFetcher do
     end
   end
 
-  def fetch_expected_status_many(api_many_url, api_code_list) when is_list(api_code_list) do
-    Logger.warning("[#{__MODULE__}] fetch_expected_status/1 need unit test")
+  def fetch_expected_status_bulk(api_bulk_url, api_code_list) when is_list(api_code_list) do
+    header_list = [
+      {"Content-Type",    "application/json"},
+      {"Accept-Encoding", "application/json"}
+    ]
+    body = %{
+      "api_code_list" => api_code_list
+    } |> Jason.encode!()
+
+    case HTTPoison.post(api_bulk_url, body, header_list) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        body_map = Jason.decode!(body)
+        {:ok, body_map}
+      {:error, %HTTPoison.Error{}} ->
+        {:error, :http_poison_error}
+    end
   end
 
 
