@@ -13,7 +13,9 @@ defmodule AsicSentry.AsicMinersFixtures do
       |> Enum.into(%{
         api_code: "some api_code",
         asic_model: "Ice River - KS5L",
-        ip: "some ip"
+        ip: "some ip",
+        asic_expected_status: "off",
+        light_expected_status: "off"
       })
       |> AsicSentry.AsicMiners.create_asic_miner()
 

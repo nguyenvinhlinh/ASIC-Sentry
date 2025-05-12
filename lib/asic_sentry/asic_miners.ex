@@ -37,6 +37,8 @@ defmodule AsicSentry.AsicMiners do
   """
   def get_asic_miner!(id), do: Repo.get!(AsicMiner, id)
 
+  def get_asic_miner_by_api_code!(api_code), do: Repo.get_by!(AsicMiner, [api_code: api_code])
+
   @doc """
   Creates a asic_miner.
 
@@ -70,6 +72,12 @@ defmodule AsicSentry.AsicMiners do
   def update_asic_miner(%AsicMiner{} = asic_miner, attrs) do
     asic_miner
     |> AsicMiner.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def update_asic_miner_by_commander(%AsicMiner{} = asic_miner, attrs) do
+    asic_miner
+    |> AsicMiner.changeset_update_by_commander(attrs)
     |> Repo.update()
   end
 
