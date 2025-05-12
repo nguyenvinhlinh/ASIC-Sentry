@@ -17,9 +17,11 @@
           <thead>
             <tr>
               <th>ID</th>
+              <th>NAME</th>
               <th>API CODE</th>
               <th>ASIC MODEL</th>
               <th>IP ADDRESS</th>
+              <th>RRC Control</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -29,6 +31,9 @@
               class="hover:bg-base-200/40 cursor-pointer *:text-nowrap" >
               <td>
                 {asic_miner.id}
+              </td>
+              <td>
+                {asic_miner.name}
               </td>
               <td>
                 <div class="flex items-center gap-2">
@@ -45,6 +50,15 @@
                   <span class="iconify lucide--network size-4"></span>{asic_miner.ip}
                 </div>
               </td>
+              <td>
+                <div class="flex items-center gap-2">
+                  <span class="iconify lucide--power size-4"> </span>{asic_miner.asic_expected_status}
+                </div>
+                <div class="mt-1 flex items-center gap-2">
+                  <span class="iconify lucide--lightbulb size-4"> </span>{asic_miner.light_expected_status}
+                </div>
+              </td>
+
               <td>
                 <div class="inline-flex">
                   <.link id={"asic_miner-#{asic_miner.id}-edit"}

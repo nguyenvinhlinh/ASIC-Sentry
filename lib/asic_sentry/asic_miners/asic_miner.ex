@@ -10,10 +10,18 @@ defmodule AsicSentry.AsicMiners.AsicMiner do
     "Ice River - KS5L" => AsicSentry.Miners.IceRiverKS5L
   }
 
+  @asic_expected_status_on   "on"
+  @asic_expected_status_off  "off"
+  @light_expected_status_on  "on"
+  @light_expected_status_off "off"
+
   schema "asic_miners" do
+    field :name, :string
     field :ip, :string
     field :api_code, :string
     field :asic_model, :string
+    field :asic_expected_status, :string
+    field :light_expected_status, :string
 
     timestamps(type: :utc_datetime)
   end
@@ -27,6 +35,14 @@ defmodule AsicSentry.AsicMiners.AsicMiner do
     |> validate_required([:api_code, :asic_model, :ip])
     |> validate_inclusion(:asic_model, @available_asic_model_list)
     |> unique_constraint([:api_code])
+  end
+
+  def changeset_update_by_commander(asic_miner, attrs) do
+    asic_miner
+    |> cast(attrs, [:name, :asic_expected_status, :light_expected_status])
+    |> validate_required([:asic_expected_status, :light_expected_status])
+    |> validate_inclusion(:asic_expected_status,  [@asic_expected_status_on,  @asic_expected_status_off])
+    |> validate_inclusion(:light_expected_status, [@light_expected_status_on, @light_expected_status_off])
   end
 
   def get_available_asic_model_list(), do: @available_asic_model_list
