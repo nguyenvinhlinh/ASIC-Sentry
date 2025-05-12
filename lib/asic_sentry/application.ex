@@ -20,6 +20,7 @@ defmodule AsicSentry.Application do
       {AsicSentry.Worker.AsicMinerLogSender, nil},
       {AsicSentry.Worker.AsicMinerSpecsSender, nil},
       {AsicSentry.Worker.AsicMinerSpecsStash, nil},
+      {AsicSentry.Worker.ExpectedStatusFetcher, nil},
       AsicSentryWeb.Endpoint
     ]
 
