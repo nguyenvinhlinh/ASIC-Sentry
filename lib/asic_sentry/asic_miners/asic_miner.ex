@@ -16,6 +16,7 @@ defmodule AsicSentry.AsicMiners.AsicMiner do
   @light_expected_status_off "off"
 
   schema "asic_miners" do
+    field :name, :string
     field :ip, :string
     field :api_code, :string
     field :asic_model, :string
@@ -38,7 +39,7 @@ defmodule AsicSentry.AsicMiners.AsicMiner do
 
   def changeset_update_by_commander(asic_miner, attrs) do
     asic_miner
-    |> cast(attrs, [:asic_expected_status, :light_expected_status])
+    |> cast(attrs, [:name, :asic_expected_status, :light_expected_status])
     |> validate_required([:asic_expected_status, :light_expected_status])
     |> validate_inclusion(:asic_expected_status,  [@asic_expected_status_on,  @asic_expected_status_off])
     |> validate_inclusion(:light_expected_status, [@light_expected_status_on, @light_expected_status_off])
