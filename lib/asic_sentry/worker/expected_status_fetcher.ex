@@ -1,4 +1,4 @@
-defmodule AsicSentry.Worker.AsicMinerExpectedStatusFetcher do
+defmodule AsicSentry.Worker.ExpectedStatusFetcher do
   use GenServer
   require Logger
   alias AsicSentry.Configs
@@ -12,12 +12,24 @@ defmodule AsicSentry.Worker.AsicMinerExpectedStatusFetcher do
   end
 
 
-  def looop do
-    # get a list of all asic miner that need to get expected status
-    # if the asic miner greater than 1, use bulk, else single api
-    #
-  end
+  def execute() do
+    asic_miner_list = AsicSentry.AsicMiners.list_asic_miners()
 
+    cond do
+      Kernel.length(asic_miner_list) == 0 ->
+        Logger.info(:info, "[ExpectedStatusFetcher] No ASIC Miner found.")
+        [asic_miner] = asic_miner_list
+
+
+
+        nil
+      Kernel.length(asic_miner_list) > 1 ->
+        nil
+    end
+
+  end
+  
+  
   def fetch_expected_status_single(api_single_url, api_code) when is_binary(api_code) do
     header_list = [
       {"api_code", api_code},
@@ -49,6 +61,26 @@ defmodule AsicSentry.Worker.AsicMinerExpectedStatusFetcher do
         {:ok, body_map}
       {:error, %HTTPoison.Error{}} ->
         {:error, :http_poison_error}
+    end
+  end
+
+  def get_single_api_url() do
+    Logger.warning("[#{__MODULE__}] get_single_api_url/0 need unit test.")
+    case Configs.get_mining_rig_commander_api_url() do
+      {:error, :config_not_found} -> {:error, :config_not_found}
+      {:ok, mining_rig_commander_api_url} ->
+        api = Path.join([mining_rig_commander_api_url, @single_api_path])
+        {:ok, api}
+    end
+  end
+
+  def get_bulk_api_url() do
+    Logger.warning("[#{__MODULE__}] get_bulk_api_url/0 need unit test.")
+    case Configs.get_mining_rig_commander_api_url() do
+      {:error, :config_not_found} -> {:error, :config_not_found}
+      {:ok, mining_rig_commander_api_url} ->
+        api = Path.join([mining_rig_commander_api_url, @bulk_api_path])
+        {:ok, api}
     end
   end
 
