@@ -19,7 +19,7 @@
         <div class="card bg-base-100 shadow">
           <div class="card-body">
             <div class="card-title">Config</div>
-            <.form id="asic_miner_new_form" for={@form} method="post" action={~p"/configs/new"}
+            <.form id="config_new_form" for={@form} method="post" action={~p"/configs/new"}
               phx-change="validate"
               phx-submit="save">
             <fieldset class="fieldset mt-2 grid grid-cols-1 gap-4">
