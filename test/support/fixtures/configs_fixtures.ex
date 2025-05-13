@@ -12,7 +12,7 @@ defmodule AsicSentry.ConfigsFixtures do
       attrs
       |> Enum.into(%{
           key: "mininig_rig_commander_api_url",
-          value: "some value"
+          value: "http://mining-rig-commander.xyz/api/v1"
       })
       |> AsicSentry.Configs.create_config()
 

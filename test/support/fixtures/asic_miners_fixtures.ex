@@ -13,10 +13,10 @@ defmodule AsicSentry.AsicMinersFixtures do
       |> Enum.into(%{
         api_code: "some api_code",
         asic_model: "Ice River - KS5L",
-        ip: "some ip"
+        ip: "some ip",
+        rrc_serial_number: "RRC-123456"
       })
       |> AsicSentry.AsicMiners.create_asic_miner()
-
     asic_miner
   end
 end

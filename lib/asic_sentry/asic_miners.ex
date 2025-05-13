@@ -18,7 +18,8 @@ defmodule AsicSentry.AsicMiners do
 
   """
   def list_asic_miners do
-    Repo.all(AsicMiner)
+    query = from(as in AsicMiner, order_by: [asc: as.id])
+    Repo.all(query)
   end
 
   @doc """
@@ -36,6 +37,12 @@ defmodule AsicSentry.AsicMiners do
 
   """
   def get_asic_miner!(id), do: Repo.get!(AsicMiner, id)
+
+  def get_asic_miner_by_api_code!(api_code), do: Repo.get_by!(AsicMiner, [api_code: api_code])
+
+  def get_asic_miner_by_rrc_serial_number(rrc_serial_number) do
+    Repo.get_by(AsicMiner, [rrc_serial_number: rrc_serial_number])
+  end
 
   @doc """
   Creates a asic_miner.
@@ -70,6 +77,12 @@ defmodule AsicSentry.AsicMiners do
   def update_asic_miner(%AsicMiner{} = asic_miner, attrs) do
     asic_miner
     |> AsicMiner.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def update_asic_miner_by_commander(%AsicMiner{} = asic_miner, attrs) do
+    asic_miner
+    |> AsicMiner.changeset_update_by_commander(attrs)
     |> Repo.update()
   end
 

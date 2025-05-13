@@ -4,7 +4,7 @@ defmodule AsicSentry.MixProject do
   def project do
     [
       app: :asic_sentry,
-      version: "2.0.0",
+      version: "3.0.0",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
@@ -57,7 +57,8 @@ defmodule AsicSentry.MixProject do
       {:gettext, "~> 0.20"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
-      {:tesla, "~> 1.11"},
+      {:tesla, "~> 1.11"}, #will replace Tesla with httpoison soon
+      {:httpoison, "~> 2.2"},
       {:jason, "~> 1.4"}
     ]
   end

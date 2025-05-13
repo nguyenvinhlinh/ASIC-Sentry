@@ -1,25 +1,25 @@
 <Layouts.nexus_app flash={@flash} >
   <div id="layout-content">
-    <!-- Start: asic_miner_live/new/ top -->
+    <!-- Start: asic_miner_live/edit/ top -->
     <div class="flex items-center justify-between">
-      <h3 class="text-lg font-medium">Create new Config</h3>
+      <h3 class="text-lg font-medium">Edit Config</h3>
       <div class="breadcrumbs hidden p-0 text-sm sm:inline">
         <ul>
           <li><a href={~p"/"} >ASIC Sentry</a></li>
           <li><a href={~p"/configs"} >Configs</a></li>
-          <li class="opacity-80">New</li>
+          <li class="opacity-80">Edit</li>
         </ul>
       </div>
     </div>
-    <!-- End: asic_miner_live/new/ top -->
+    <!-- End: asic_miner_live/edit/ top -->
 
-    <!-- Start: asic_miner_live/new form -->
+    <!-- Start: asic_miner_live/edit form -->
     <div class="mt-6">
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2 2xl:grid-cols-3">
         <div class="card bg-base-100 shadow">
           <div class="card-body">
             <div class="card-title">Config</div>
-            <.form id="asic_miner_new_form" for={@form} method="post" action={~p"/configs/new"}
+            <.form id="config_edit_form" for={@form} method="post"
               phx-change="validate"
               phx-submit="save">
             <fieldset class="fieldset mt-2 grid grid-cols-1 gap-4">

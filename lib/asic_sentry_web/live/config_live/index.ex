@@ -2,7 +2,6 @@ defmodule AsicSentryWeb.ConfigLive.Index do
   use AsicSentryWeb, :live_view_container_grow
 
   alias AsicSentry.Configs
-  alias AsicSentry.Configs.Config
 
   embed_templates "index_html/*"
 

@@ -6,7 +6,7 @@
           <b>ASIC Miners</b>
         </div>
         <div class="inline-flex items-center gap-3">
-          <a id="asic_miners_new" class="btn btn-primary btn-sm max-sm:btn-square" href={~p"/asic_miners/new"}>
+          <a id="asic_miner_new" class="btn btn-primary btn-sm max-sm:btn-square" href={~p"/asic_miners/new"}>
             <span class="iconify lucide--plus size-4"></span>
             <span class="hidden sm:inline">New ASIC Miners</span>
           </a>
@@ -17,9 +17,12 @@
           <thead>
             <tr>
               <th>ID</th>
+              <th>NAME</th>
               <th>API CODE</th>
               <th>ASIC MODEL</th>
               <th>IP ADDRESS</th>
+              <th>RRC Serial No</th>
+              <th>RRC Control</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -29,6 +32,9 @@
               class="hover:bg-base-200/40 cursor-pointer *:text-nowrap" >
               <td>
                 {asic_miner.id}
+              </td>
+              <td>
+                {asic_miner.name}
               </td>
               <td>
                 <div class="flex items-center gap-2">
@@ -45,6 +51,23 @@
                   <span class="iconify lucide--network size-4"></span>{asic_miner.ip}
                 </div>
               </td>
+              <td>{asic_miner.rrc_serial_number}</td>
+              <td>
+                <div class="flex items-center gap-2">
+                  <span class="iconify lucide--power size-4"> </span>
+                  <span class={css_class_asic_expected_status(asic_miner)} >
+                    {asic_miner.asic_expected_status}
+                  </span>
+
+                </div>
+                <div class="mt-1 flex items-center gap-2">
+                  <span class="iconify lucide--lightbulb size-4"> </span>
+                  <span class={css_class_light_expected_status(asic_miner)} >
+                    {asic_miner.light_expected_status}
+                  </span>
+                </div>
+              </td>
+
               <td>
                 <div class="inline-flex">
                   <.link id={"asic_miner-#{asic_miner.id}-edit"}
