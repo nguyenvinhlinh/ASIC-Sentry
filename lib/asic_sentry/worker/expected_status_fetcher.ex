@@ -30,6 +30,7 @@ defmodule AsicSentry.Worker.ExpectedStatusFetcher do
   end
 
   def execute() do
+    Logger.info("[AsicSentry.Worker.ExpectedStatusFetcher] Execute")
     asic_miner_list = AsicSentry.AsicMiners.list_asic_miners()
     cond do
       Kernel.length(asic_miner_list) == 0 ->
@@ -43,15 +44,14 @@ defmodule AsicSentry.Worker.ExpectedStatusFetcher do
   end
 
   def execute_case_single(%AsicMiner{}=asic_miner) do
-    Logger.warning("[ExpectedStatusFetcher] execute_case_single/1 need unit test.")
     with {:ok, api_url} <- get_single_api_url(),
          {:ok, asic_miner_params} <- fetch_expected_status_single(api_url, asic_miner.api_code) do
-      AsicMiners.update_asic_miner_by_commander(asic_miner, asic_miner_params)
+      {:ok, asic_miner_updated} = AsicMiners.update_asic_miner_by_commander(asic_miner, asic_miner_params)
+      Phoenix.PubSub.broadcast(AsicSentry.PubSub, "asic_miner_index_channel", {:asic_miner_index_channel, :create_or_update, asic_miner_updated})
     end
   end
 
   def execute_case_bulk(asic_miner_list) do
-    Logger.warning("[ExpectedStatusFetcher] execute_case_bulk/1 need unit test.")
     api_code_list = Enum.map(asic_miner_list, &(&1.api_code))
     with {:ok, api_url} <- get_bulk_api_url(),
          {:ok, asic_miner_params_map} <- fetch_expected_status_bulk(api_url, api_code_list) do
@@ -59,7 +59,8 @@ defmodule AsicSentry.Worker.ExpectedStatusFetcher do
       for key <- api_code_key_list do
         asic_miner_params = Map.get(asic_miner_params_map, key)
         asic_miner = AsicMiners.get_asic_miner_by_api_code!(key)
-        AsicMiners.update_asic_miner_by_commander(asic_miner, asic_miner_params)
+        {:ok, asic_miner_updated} = AsicMiners.update_asic_miner_by_commander(asic_miner, asic_miner_params)
+        Phoenix.PubSub.broadcast(AsicSentry.PubSub, "asic_miner_index_channel", {:asic_miner_index_channel, :create_or_update, asic_miner_updated})
       end
     end
   end

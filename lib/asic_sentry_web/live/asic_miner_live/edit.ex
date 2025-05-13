@@ -36,6 +36,8 @@ defmodule AsicSentryWeb.AsicMinerLive.Edit do
     case AsicMiners.update_asic_miner(asic_miner, asic_miner_params) do
       {:ok, asic_miner} ->
         message = "ASIC Miner ##{asic_miner.id} updated successfully."
+        Phoenix.PubSub.broadcast(AsicSentry.PubSub, "asic_miner_index_channel", {:asic_miner_index_channel, :create_or_update, asic_miner})
+        Phoenix.PubSub.broadcast(AsicSentry.PubSub, "flash_index_channel", {:flash_index_channel, :info, message})
         socket_mod = socket
         |> put_flash(:info, message)
         |> redirect(to: ~p"/asic_miners")

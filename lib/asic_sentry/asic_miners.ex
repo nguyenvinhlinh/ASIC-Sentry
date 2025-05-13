@@ -18,7 +18,8 @@ defmodule AsicSentry.AsicMiners do
 
   """
   def list_asic_miners do
-    Repo.all(AsicMiner)
+    query = from(as in AsicMiner, order_by: [asc: as.id])
+    Repo.all(query)
   end
 
   @doc """
