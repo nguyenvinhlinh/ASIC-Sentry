@@ -46,7 +46,7 @@
                 </label>
                 <input class={input_class(@form[:ip])}
                        type="text" id={@form[:ip].id} name={@form[:ip].name} value={@form[:ip].value}
-                       placeholder="IP Address">
+                       placeholder="IP Address 192.168.X.X">
                 <div :if={used_input?(@form[:ip])} >
                   <p :for={error <- @form[:ip].errors} class="alert alert-error alert-soft">
                     {nx_error(error)}
@@ -69,6 +69,24 @@
                     {nx_error(error)}
                   </p>
                 </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="fieldset mt-2 grid grid-cols-1 gap-4">
+              <div class="space-y-2">
+                <label class="fieldset-label" for={@form[:rrc_serial_number].id} >
+                  Remote Relay Controller - Serial Number
+                </label>
+
+                <input class={input_class(@form[:rrc_serial_number])}
+                       type="text" id={@form[:rrc_serial_number].id} name={@form[:rrc_serial_number].name} value={@form[:rrc_serial_number].value}
+                       placeholder="Serial No. XXX-XXX-XXX-XXX">
+                <div :if={used_input?(@form[:rrc_serial_number])} >
+                  <p :for={error <- @form[:rrc_serial_number].errors} class="alert alert-error alert-soft">
+                    {nx_error(error)}
+                  </p>
+                </div>
+
               </div>
             </fieldset>
 

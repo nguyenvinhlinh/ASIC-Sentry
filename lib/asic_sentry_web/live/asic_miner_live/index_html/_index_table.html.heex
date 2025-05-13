@@ -21,6 +21,7 @@
               <th>API CODE</th>
               <th>ASIC MODEL</th>
               <th>IP ADDRESS</th>
+              <th>RRC Serial No</th>
               <th>RRC Control</th>
               <th>Action</th>
             </tr>
@@ -50,6 +51,7 @@
                   <span class="iconify lucide--network size-4"></span>{asic_miner.ip}
                 </div>
               </td>
+              <td>{asic_miner.rrc_serial_number}</td>
               <td>
                 <div class="flex items-center gap-2">
                   <span class="iconify lucide--power size-4"> </span>{asic_miner.asic_expected_status}
