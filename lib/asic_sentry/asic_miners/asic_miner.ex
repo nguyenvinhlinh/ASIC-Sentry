@@ -21,8 +21,8 @@ defmodule AsicSentry.AsicMiners.AsicMiner do
     field :ip, :string
     field :api_code, :string
     field :asic_model, :string
-    field :asic_expected_status, :string
-    field :light_expected_status, :string
+    field :asic_expected_status,  :string, default: "on"
+    field :light_expected_status, :string, default: "off"
     field :rrc_serial_number, :string
 
     timestamps(type: :utc_datetime)

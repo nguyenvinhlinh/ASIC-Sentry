@@ -17,7 +17,6 @@ defmodule AsicSentry.AsicMinersFixtures do
         rrc_serial_number: "RRC-123456"
       })
       |> AsicSentry.AsicMiners.create_asic_miner()
-
     asic_miner
   end
 end
