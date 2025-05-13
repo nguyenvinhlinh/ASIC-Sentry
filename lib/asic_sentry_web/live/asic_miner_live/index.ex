@@ -42,4 +42,20 @@ defmodule AsicSentryWeb.AsicMinerLive.Index do
 
     {:noreply, socket_mod}
   end
+
+  def css_class_asic_expected_status(asic_miner) do
+    if asic_miner.asic_expected_status == "on" do
+      "badge badge-success"
+    else
+      "badge badge-error"
+    end
+  end
+
+  def css_class_light_expected_status(asic_miner) do
+    if asic_miner.light_expected_status == "on" do
+      "badge badge-success"
+    else
+      "badge badge-error"
+    end
+  end
 end

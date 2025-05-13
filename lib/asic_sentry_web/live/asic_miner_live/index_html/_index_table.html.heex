@@ -54,10 +54,17 @@
               <td>{asic_miner.rrc_serial_number}</td>
               <td>
                 <div class="flex items-center gap-2">
-                  <span class="iconify lucide--power size-4"> </span>{asic_miner.asic_expected_status}
+                  <span class="iconify lucide--power size-4"> </span>
+                  <span class={css_class_asic_expected_status(asic_miner)} >
+                    {asic_miner.asic_expected_status}
+                  </span>
+
                 </div>
                 <div class="mt-1 flex items-center gap-2">
-                  <span class="iconify lucide--lightbulb size-4"> </span>{asic_miner.light_expected_status}
+                  <span class="iconify lucide--lightbulb size-4"> </span>
+                  <span class={css_class_light_expected_status(asic_miner)} >
+                    {asic_miner.light_expected_status}
+                  </span>
                 </div>
               </td>
 
