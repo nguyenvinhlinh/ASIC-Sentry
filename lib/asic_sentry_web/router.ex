@@ -23,6 +23,13 @@ defmodule AsicSentryWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :api_asic_miner_rrc_serial_number do
+    plug :accepts, ["json"]
+    plug AsicSentryWeb.PLugs.RrcSerialNumberAuthentication
+  end
+
+
+
   scope "/", AsicSentryWeb do
     pipe_through :browser_nexus
 
@@ -37,6 +44,11 @@ defmodule AsicSentryWeb.Router do
     live "/configs/:id/edit", ConfigLive.Edit,  :edit
 
     live "/realtime_logs", RealtimeLog.Index, :index
+  end
+
+  scope "/api/v1", AsicSentryWeb do
+    pipe_through :api_asic_miner_rrc_serial_number
+    get "/asic_miners/expected_status", AsicMinerController, :get_expected_status
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

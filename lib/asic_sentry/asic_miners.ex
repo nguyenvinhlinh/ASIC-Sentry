@@ -39,6 +39,10 @@ defmodule AsicSentry.AsicMiners do
 
   def get_asic_miner_by_api_code!(api_code), do: Repo.get_by!(AsicMiner, [api_code: api_code])
 
+  def get_asic_miner_by_rrc_serial_number(rrc_serial_number) do
+    Repo.get_by(AsicMiner, [rrc_serial_number: rrc_serial_number])
+  end
+
   @doc """
   Creates a asic_miner.
 

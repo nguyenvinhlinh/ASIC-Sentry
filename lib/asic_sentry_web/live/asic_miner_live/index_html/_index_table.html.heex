@@ -6,7 +6,7 @@
           <b>ASIC Miners</b>
         </div>
         <div class="inline-flex items-center gap-3">
-          <a id="asic_miners_new" class="btn btn-primary btn-sm max-sm:btn-square" href={~p"/asic_miners/new"}>
+          <a id="asic_miner_new" class="btn btn-primary btn-sm max-sm:btn-square" href={~p"/asic_miners/new"}>
             <span class="iconify lucide--plus size-4"></span>
             <span class="hidden sm:inline">New ASIC Miners</span>
           </a>
@@ -21,6 +21,7 @@
               <th>API CODE</th>
               <th>ASIC MODEL</th>
               <th>IP ADDRESS</th>
+              <th>RRC Serial No</th>
               <th>RRC Control</th>
               <th>Action</th>
             </tr>
@@ -50,6 +51,7 @@
                   <span class="iconify lucide--network size-4"></span>{asic_miner.ip}
                 </div>
               </td>
+              <td>{asic_miner.rrc_serial_number}</td>
               <td>
                 <div class="flex items-center gap-2">
                   <span class="iconify lucide--power size-4"> </span>{asic_miner.asic_expected_status}
