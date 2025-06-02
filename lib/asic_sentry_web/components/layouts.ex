@@ -19,4 +19,8 @@ defmodule AsicSentryWeb.Layouts do
     {render_slot(@inner_block)}
     """
   end
+
+  def version() do
+    Application.spec(:asic_sentry)[:vsn]
+  end
 end
